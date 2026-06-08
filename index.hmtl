@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lima Sistema Contra Incêndio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D91C1C;
+    --red-dark: #A50E0E;
+    --red-deeper: #7A0000;
+    --white: #FFFFFF;
+    --off-white: #FAF8F8;
+    --gray-light: #F0EDED;
+    --gray-mid: #C4BFBF;
+    --dark: #1A0505;
+    --text: #2D1010;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+    height: 72px;
+    background: rgba(10,0,0,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--red);
+  }
+
+  .nav-logo-placeholder {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--red);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-text-block {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+
+  .logo-sub {
+    font-size: 9px;
+    color: var(--gray-mid);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--gray-mid);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--red);
+    color: var(--white) !important;
+    padding: 10px 22px;
+    border-radius: 2px;
+    transition: background .2s !important;
+  }
+
+  .nav-cta:hover { background: var(--red-dark) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 5vw 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(217,28,28,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+
+  .hero-diagonal {
+    position: absolute;
+    top: 0; right: 38%;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, var(--red-dark) 40%, var(--red) 60%, transparent);
+    transform: skewX(-6deg);
+    opacity: .4;
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(217,28,28,0.12);
+    border: 1px solid rgba(217,28,28,0.4);
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(1.6); }
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 6vw, 88px);
+    color: var(--white);
+    line-height: .95;
+    margin-bottom: 24px;
+    letter-spacing: 2px;
+  }
+
+  .hero h1 span { color: var(--red); display: block; }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--gray-mid);
+    max-width: 480px;
+    margin-bottom: 44px;
+  }
+
+  .hero-desc strong { color: var(--white); font-weight: 600; }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--red);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: 2px;
+    transition: background .2s, transform .2s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: border-color .2s, background .2s;
+  }
+
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+  .hero-image-col {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-img-frame { position: relative; width: 100%; max-width: 540px; }
+
+  .hero-img-main {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    background: #2a0808;
+  }
+
+  .hero-img-main.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: rgba(255,255,255,0.2);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .hero-img-badge {
+    position: absolute;
+    bottom: -24px; left: -24px;
+    background: var(--red);
+    color: var(--white);
+    padding: 20px 24px;
+    border-radius: 4px;
+  }
+
+  .hero-img-badge strong {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    display: block;
+    line-height: 1;
+  }
+
+  .hero-img-badge span {
+    font-size: 11px;
+    letter-spacing: 2px;
+    opacity: .85;
+    text-transform: uppercase;
+  }
+
+  .hero-img-corner {
+    position: absolute;
+    top: -12px; right: -12px;
+    width: 80px; height: 80px;
+    border-top: 3px solid var(--red);
+    border-right: 3px solid var(--red);
+    border-radius: 0 4px 0 0;
+  }
+
+  /* DIFERENCIAIS BAR */
+  .diff-bar {
+    background: var(--red);
+    padding: 20px 5vw;
+    display: flex;
+  }
+
+  .diff-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    padding: 0 24px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+  }
+
+  .diff-item:first-child { padding-left: 0; }
+  .diff-item:last-child { border-right: none; }
+
+  .diff-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    opacity: .9;
+  }
+
+  .diff-text {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* NORMAS */
+  .normas {
+    padding: 40px 5vw;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .norma-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    letter-spacing: 1px;
+  }
+
+  .norma-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* SOBRE */
+  .sobre {
+    padding: 100px 5vw;
+    background: var(--off-white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 4vw, 60px);
+    line-height: 1;
+    color: var(--dark);
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+
+  .section-title span { color: var(--red); }
+
+  .sobre-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 40px;
+  }
+
+  .sobre-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border-left: 4px solid var(--red);
+    padding: 20px 24px;
+    border-radius: 2px;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    margin-top: 4px;
+  }
+
+  .sobre-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+  }
+
+  .sobre-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    background: #e8d8d8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbb;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .sobre-img.tall { grid-row: span 2; aspect-ratio: auto; }
+
+  /* SERVICOS */
+  .servicos {
+    padding: 100px 5vw;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .servicos::before {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(217,28,28,0.1) 0%, transparent 70%);
+  }
+
+  .servicos-header { max-width: 600px; margin-bottom: 60px; }
+  .servicos-header .section-title { color: var(--white); }
+
+  .servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(217,28,28,0.2);
+    border: 2px solid rgba(217,28,28,0.2);
+  }
+
+  .servico-card {
+    background: #180404;
+    padding: 40px 32px;
+    transition: background .3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .servico-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 3px;
+    background: var(--red);
+    transition: width .4s;
+  }
+
+  .servico-card:hover { background: #220606; }
+  .servico-card:hover::after { width: 100%; }
+
+  .servico-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: rgba(217,28,28,0.15);
+    line-height: 1;
+    margin-bottom: 20px;
+    transition: color .3s;
+  }
+
+  .servico-card:hover .servico-num { color: rgba(217,28,28,0.4); }
+
+  .servico-svg {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 16px;
+    color: var(--red);
+  }
+
+  .servico-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .servico-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--gray-mid);
+  }
+
+  /* PRODUTOS */
+  .produtos { padding: 100px 5vw; background: var(--off-white); }
+  .produtos-header { max-width: 600px; margin-bottom: 60px; }
+
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .produto-card {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: box-shadow .3s, transform .3s;
+  }
+
+  .produto-card:hover {
+    box-shadow: 0 12px 40px rgba(217,28,28,0.12);
+    transform: translateY(-4px);
+  }
+
+  .produto-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    padding: 16px;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .produto-info {
+    padding: 16px;
+    border-top: 1px solid var(--gray-light);
+  }
+
+  .produto-nome { font-weight: 700; font-size: 13px; color: var(--dark); }
+  .produto-cat { font-size: 11px; color: var(--red); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+
+  /* ATENDIMENTO */
+  .atendimento {
+    padding: 80px 5vw;
+    background: var(--red);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .atend-block h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .horario-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    font-size: 14px;
+  }
+
+  .badge-24h {
+    background: var(--white);
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-top: 16px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+    color: var(--white);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .contact-svg {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .contact-item a { color: var(--white); text-decoration: none; }
+  .contact-item a:hover { text-decoration: underline; }
+
+  .marcas-block { display: flex; flex-direction: column; gap: 12px; }
+
+  .marca-tag {
+    background: rgba(255,255,255,0.15);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border-radius: 2px;
+  }
+
+  /* CTA FINAL */
+  .cta-final {
+    padding: 120px 5vw;
+    background: var(--dark);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-final::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(217,28,28,0.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .cta-final-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 20px;
+  }
+
+  .cta-final h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 90px);
+    color: var(--white);
+    line-height: .95;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+
+  .cta-final h2 span { color: var(--red); }
+
+  .cta-final p {
+    font-size: 16px;
+    color: var(--gray-mid);
+    max-width: 500px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #0d0101;
+    padding: 32px 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(217,28,28,0.3);
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--white);
+    letter-spacing: 3px;
+  }
+
+  .footer-brand span { color: var(--red); }
+  .footer-copy { font-size: 12px; color: #555; letter-spacing: 1px; }
+  .footer-norma { font-size: 11px; color: var(--red); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* WHATSAPP FLOAT */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 32px; right: 32px;
+    z-index: 200;
+    width: 60px; height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    transition: transform .2s;
+    text-decoration: none;
+  }
+
+  .whatsapp-float:hover { transform: scale(1.1); }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero-image-col { margin-top: 40px; }
+    .sobre { grid-template-columns: 1fr; gap: 48px; }
+    .servicos-grid { grid-template-columns: 1fr 1fr; }
+    .produtos-grid { grid-template-columns: 1fr 1fr; }
+    .atendimento { grid-template-columns: 1fr; gap: 40px; }
+    .diff-bar { flex-direction: column; gap: 16px; }
+    .diff-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding: 0 0 16px; }
+    .nav-links { display: none; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .servicos-grid { grid-template-columns: 1fr; }
+    .produtos-grid { grid-template-columns: 1fr 1fr; }
+    .sobre-stats { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo-placeholder">
+    <div class="logo-icon">
+      <!-- ícone chama SVG -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C12 2 5.5 9.5 5.5 14.5C5.5 18.09 8.41 21 12 21C15.59 21 18.5 18.09 18.5 14.5C18.5 9.5 12 2 12 2Z" fill="white"/>
+        <path d="M12 9C12 9 9.5 12.5 9.5 15C9.5 16.38 10.62 17.5 12 17.5C13.38 17.5 14.5 16.38 14.5 15C14.5 12.5 12 9 12 9Z" fill="#D91C1C"/>
+      </svg>
+    </div>
+    <div class="logo-text-block">
+      <!--
+        LOGO: Substitua este bloco por:
+        <img src="SUA_URL_CLOUDINARY" alt="Lima Sistema" style="height:48px;width:auto;">
+      -->
+      <span class="logo-main">LIMA SISTEMA</span>
+      <span class="logo-sub">Contra Incêndio</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Servicos</a></li>
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="#contato" class="nav-cta">Falar agora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-diagonal"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Certificados e Aprovados nas Normas ABNT</div>
+    <h1>
+      Protecao que<br>
+      <span>Salva Vidas.</span>
+    </h1>
+    <p class="hero-desc">
+      Especialistas em <strong>prevencao, deteccao e combate a incendios</strong>.
+      Instalamos, manutenemos e vendemos equipamentos certificados para
+      empresas, condominios, industrias e comercios.
+    </p>
+    <div class="hero-btns">
+      <a href="https://wa.me/5516992763885" class="btn-primary" target="_blank">Solicitar Orcamento</a>
+      <a href="#servicos" class="btn-outline">Ver Servicos</a>
+    </div>
+  </div>
+
+  <div class="hero-image-col">
+    <div class="hero-img-frame">
+      <div class="hero-img-corner"></div>
+      <!--
+        IMAGEM HERO: Substitua por:
+        <img class="hero-img-main" src="SUA_URL_CLOUDINARY" alt="Lima Sistema">
+      -->
+      <div class="hero-img-main placeholder">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity=".3">
+          <rect x="8" y="8" width="32" height="32" rx="2" stroke="white" stroke-width="2"/>
+          <path d="M8 30L18 20L24 26L32 18L40 28" stroke="white" stroke-width="2"/>
+          <circle cx="30" cy="18" r="4" stroke="white" stroke-width="2"/>
+        </svg>
+        <span>Imagem Principal</span>
+      </div>
+      <div class="hero-img-badge">
+        <strong>24H</strong>
+        <span>Atendimento</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NORMAS -->
+<div class="normas reveal">
+  <div class="norma-badge"><div class="dot"></div> ABNT NBR 12693</div>
+  <div class="norma-badge"><div class="dot"></div> ABNT NBR 17240</div>
+  <div class="norma-badge"><div class="dot"></div> ABNT NBR 13714</div>
+  <div class="norma-badge"><div class="dot"></div> AVCB / CLCB</div>
+  <div class="norma-badge"><div class="dot"></div> Equipamentos Certificados</div>
+</div>
+
+<!-- DIFERENCIAIS BAR -->
+<div class="diff-bar">
+  <div class="diff-item">
+    <svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+    </svg>
+    <span class="diff-text">Atendimento 24h</span>
+  </div>
+  <div class="diff-item">
+    <svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    <span class="diff-text">Equipamentos Certificados</span>
+  </div>
+  <div class="diff-item">
+    <svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+    <span class="diff-text">Instalacao Profissional</span>
+  </div>
+  <div class="diff-item">
+    <svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+    </svg>
+    <span class="diff-text">Laudos e Documentacao</span>
+  </div>
+  <div class="diff-item">
+    <svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+    </svg>
+    <span class="diff-text">Normas Tecnicas ABNT</span>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="reveal">
+    <div class="section-label">Quem somos</div>
+    <h2 class="section-title">Seguranca com <span>Tecnologia</span> e Confianca</h2>
+    <p class="sobre-text">
+      A <strong>Lima Sistema Contra Incendio</strong> e especializada em solucoes de prevencao, deteccao e combate a incendios,
+      oferecendo instalacao, manutencao e venda de equipamentos certificados.
+      <br><br>
+      Atendemos empresas, condominios, industrias e comercios com tecnologia, qualidade e seguranca,
+      sempre seguindo as normas tecnicas e garantindo a <strong>protecao de vidas e patrimonios</strong>.
+    </p>
+    <div class="sobre-stats">
+      <div class="stat-card">
+        <div class="stat-num">24H</div>
+        <div class="stat-label">Atendimento</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Certificados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">+6</div>
+        <div class="stat-label">Marcas Parceiras</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">NBR</div>
+        <div class="stat-label">Normas ABNT</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sobre-images reveal">
+    <!--
+      IMAGENS SOBRE: Substitua por:
+      <img class="sobre-img tall" src="URL_CLOUDINARY" alt="">
+      <img class="sobre-img" src="URL_CLOUDINARY" alt="">
+      <img class="sobre-img" src="URL_CLOUDINARY" alt="">
+    -->
+    <div class="sobre-img tall">Imagem 1</div>
+    <div class="sobre-img" style="background:#ede0e0;">Imagem 2</div>
+    <div class="sobre-img">Imagem 3</div>
+  </div>
+</section>
+
+<!-- SERVICOS -->
+<section class="servicos" id="servicos">
+  <div class="servicos-header reveal">
+    <div class="section-label">O que fazemos</div>
+    <h2 class="section-title">Nossos <span>Servicos</span></h2>
+  </div>
+
+  <div class="servicos-grid">
+    <div class="servico-card reveal">
+      <div class="servico-num">01</div>
+      <svg class="servico-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 2v4M8 13h8M10 17h4"/>
+      </svg>
+      <div class="servico-title">Extintores de Incendio</div>
+      <p class="servico-desc">Venda, recarga, inspecao e manutencao de extintores de todos os tipos. Conformidade com ABNT NBR 12693.</p>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-num">02</div>
+      <svg class="servico-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <div class="servico-title">Alarmes e Deteccao</div>
+      <p class="servico-desc">Instalacao de centrais de alarme, detectores de fumaca e calor, acionadores manuais e sirenes de alerta.</p>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-num">03</div>
+      <svg class="servico-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+      </svg>
+      <div class="servico-title">Hidrantes e Sprinklers</div>
+      <p class="servico-desc">Projetos e instalacao de sistemas de hidrantes e sprinklers, conforme norma NBR 13714 e NBR 10897.</p>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-num">04</div>
+      <svg class="servico-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      </svg>
+      <div class="servico-title">Iluminacao de Emergencia</div>
+      <p class="servico-desc">Blocos autonomos, luminarias de sinalizacao de saida e sistemas de iluminacao de emergencia.</p>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-num">05</div>
+      <svg class="servico-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+      <div class="servico-title">Manutencao Preventiva</div>
+      <p class="servico-desc">Contratos de manutencao periodica para garantir o funcionamento pleno de todos os sistemas instalados.</p>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-num">06</div>
+      <svg class="servico-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+      </svg>
+      <div class="servico-title">Laudos e AVCB</div>
+      <p class="servico-desc">Elaboracao de laudos tecnicos e acompanhamento para obtencao do Auto de Vistoria do Corpo de Bombeiros.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section class="produtos" id="produtos">
+  <div class="produtos-header reveal">
+    <div class="section-label">Linha de produtos</div>
+    <h2 class="section-title">Equipamentos <span>Certificados</span></h2>
+  </div>
+
+  <div class="produtos-grid">
+    <!--
+      PRODUTOS: Substitua os divs placeholder por:
+      <img class="produto-img" src="URL_CLOUDINARY" alt="Nome Produto" style="object-fit:contain;padding:16px;background:#fafafa;">
+    -->
+    <div class="produto-card reveal">
+      <div class="produto-img">Imagem</div>
+      <div class="produto-info">
+        <div class="produto-nome">Extintor CO2 4kg</div>
+        <div class="produto-cat">Extincao</div>
+      </div>
+    </div>
+    <div class="produto-card reveal">
+      <div class="produto-img">Imagem</div>
+      <div class="produto-info">
+        <div class="produto-nome">Central de Alarme Intelbras</div>
+        <div class="produto-cat">Deteccao</div>
+      </div>
+    </div>
+    <div class="produto-card reveal">
+      <div class="produto-img">Imagem</div>
+      <div class="produto-info">
+        <div class="produto-nome">Detector de Fumaca</div>
+        <div class="produto-cat">Deteccao</div>
+      </div>
+    </div>
+    <div class="produto-card reveal">
+      <div class="produto-img">Imagem</div>
+      <div class="produto-info">
+        <div class="produto-nome">Mangueira para Hidrante</div>
+        <div class="produto-cat">Hidraulica</div>
+      </div>
+    </div>
+    <div class="produto-card reveal">
+      <div class="produto-img">Imagem</div>
+      <div class="produto-info">
+        <div class="produto-nome">Iluminacao de Emergencia</div>
+        <div class="produto-cat">Sinalizacao</div>
+      </div>
+    </div>
+    <div class="produto-card reveal">
+      <div class="produto-img">Imagem</div>
+      <div class="produto-info">
+        <div class="produto-nome">Sprinkler</div>
+        <div class="produto-cat">Supressao</div>
+      </div>
+    </div>
+    <div class="produto-card reveal">
+      <div class="produto-img">Imagem</div>
+      <div class="produto-info">
+        <div class="produto-nome">Extintor Po Quimico 6kg</div>
+        <div class="produto-cat">Extincao</div>
+      </div>
+    </div>
+    <div class="produto-card reveal">
+      <div class="produto-img">Imagem</div>
+      <div class="produto-info">
+        <div class="produto-nome">Kit Acionador Manual</div>
+        <div class="produto-cat">Alarme</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATENDIMENTO + CONTATO -->
+<section class="atendimento" id="contato">
+  <div class="atend-block reveal">
+    <h3>Horarios</h3>
+    <div class="horario-row">
+      <strong>Segunda - Sexta</strong>
+      <span>07h - 18h</span>
+    </div>
+    <div class="horario-row">
+      <strong>Sabado</strong>
+      <span>08h - 13h</span>
+    </div>
+    <div class="badge-24h">Emergencias 24H</div>
+  </div>
+
+  <div class="atend-block reveal">
+    <h3>Contato</h3>
+    <div class="contact-item">
+      <svg class="contact-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.38 2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l1.07-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <div>
+        <strong>Telefone e WhatsApp</strong><br>
+        <a href="tel:+5516992763885">(16) 99276-3885</a>
+      </div>
+    </div>
+    <div class="contact-item">
+      <svg class="contact-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+      </svg>
+      <div>
+        <strong>E-mail</strong><br>
+        <a href="mailto:grupolima3@gmail.com">grupolima3@gmail.com</a>
+      </div>
+    </div>
+    <div class="contact-item">
+      <svg class="contact-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+      </svg>
+      <div>
+        <strong>Endereco</strong><br>
+        Rua Manoel Francisco, 52 - Vila Claudia<br>
+        CEP 14140-000 - Sao Paulo / SP
+      </div>
+    </div>
+  </div>
+
+  <div class="atend-block reveal">
+    <h3>Marcas Parceiras</h3>
+    <div class="marcas-block">
+      <div class="marca-tag">Intelbras</div>
+      <div class="marca-tag">Bosch</div>
+      <div class="marca-tag">FAME</div>
+      <div class="marca-tag">Amerex</div>
+      <div class="marca-tag">e outros</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-final-tag">Solicite agora mesmo</div>
+  <h2 class="reveal">Sua Empresa<br><span>Protegida.</span></h2>
+  <p class="reveal">Fale com um especialista e garanta a seguranca do seu patrimonio e das pessoas.</p>
+  <div class="reveal">
+    <a href="https://wa.me/5516992763885" class="btn-primary" target="_blank" style="font-size:14px; padding:18px 40px;">
+      Falar com Especialista no WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">LIMA <span>SISTEMA</span></div>
+  <div class="footer-copy">2025 Lima Sistema Contra Incendio - Todos os direitos reservados</div>
+  <div class="footer-norma">Normas ABNT</div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/5516992763885" class="whatsapp-float" target="_blank" title="WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+    <path d="M15 2.5C8.1 2.5 2.5 8.1 2.5 15C2.5 17.4 3.2 19.6 4.4 21.5L2.5 27.5L8.7 25.6C10.5 26.7 12.7 27.5 15 27.5C21.9 27.5 27.5 21.9 27.5 15C27.5 8.1 21.9 2.5 15 2.5Z" fill="white"/>
+    <path d="M20.5 17.9C20.2 17.75 18.65 16.98 18.37 16.88C18.09 16.77 17.88 16.72 17.67 17.02C17.46 17.32 16.85 18.03 16.67 18.24C16.49 18.45 16.3 18.48 16 18.33C15.7 18.18 14.72 17.86 13.56 16.83C12.66 16.03 12.07 15.04 11.89 14.74C11.71 14.44 11.87 14.28 12.02 14.13C12.16 13.99 12.32 13.76 12.47 13.58C12.62 13.4 12.67 13.27 12.78 13.06C12.88 12.85 12.83 12.67 12.75 12.52C12.67 12.37 12.08 10.82 11.82 10.22C11.57 9.63 11.31 9.71 11.12 9.7C10.94 9.69 10.73 9.69 10.52 9.69C10.31 9.69 9.97 9.77 9.69 10.07C9.41 10.37 8.65 11.08 8.65 12.63C8.65 14.18 9.72 15.68 9.87 15.89C10.02 16.1 12.07 19.18 15.13 20.55C15.87 20.87 16.45 21.06 16.9 21.2C17.64 21.43 18.32 21.4 18.85 21.32C19.44 21.23 20.66 20.6 20.91 19.91C21.16 19.22 21.16 18.63 21.08 18.5C21 18.37 20.8 18.05 20.5 17.9Z" fill="#25D366"/>
+  </svg>
+</a>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
