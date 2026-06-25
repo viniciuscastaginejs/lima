@@ -821,11 +821,21 @@
   /* REVEAL */
   .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity .7s ease, transform .7s ease;
+    transform: translateY(42px) scale(.985);
+    transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform;
   }
 
   .reveal.visible { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* âncoras não param embaixo da barra fixa */
+  section[id] { scroll-margin-top: 110px; }
+  @media (max-width: 980px) { section[id] { scroll-margin-top: 84px; } }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
@@ -888,6 +898,21 @@
     letter-spacing: .4px; text-transform: uppercase; color: #fff;
   }
   .nav-wireless .nw-text b { font-weight: 800; }
+
+  /* menu wrapper: invisible no desktop (layout original), vira dropdown no mobile */
+  .nav-menu { display: contents; }
+  .nav-toggle {
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 44px; height: 44px; padding: 9px; background: transparent;
+    border: none; cursor: pointer; flex-shrink: 0;
+  }
+  .nav-toggle span {
+    display: block; height: 2.5px; width: 100%; background: #fff; border-radius: 2px;
+    transition: transform .3s ease, opacity .2s ease;
+  }
+  nav.nav-r.open .nav-toggle span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  nav.nav-r.open .nav-toggle span:nth-child(2) { opacity: 0; }
+  nav.nav-r.open .nav-toggle span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
   /* ---- PARTE 1: HERO 1 ---- */
   .hero1 {
@@ -1090,8 +1115,30 @@
     .istrip-item svg { width: 32px; height: 32px; }
   }
   @media (max-width: 980px) {
-    nav.nav-r { flex-wrap: wrap; height: auto; padding: 12px 4vw; gap: 12px; }
-    .nav-r-links { order: 3; width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 14px 20px; }
+    nav.nav-r { flex-wrap: nowrap; height: 76px; padding: 0 5vw; gap: 12px; }
+    nav.nav-r .nav-logo img { height: 60px; }
+    .nav-toggle { display: flex; z-index: 2; }
+    .nav-menu {
+      display: flex; flex-direction: column; align-items: stretch; gap: 0;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(10,3,3,0.98); backdrop-filter: blur(14px);
+      border-bottom: 3px solid var(--red);
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height .4s ease, opacity .3s ease;
+      box-shadow: 0 16px 30px rgba(0,0,0,0.45);
+    }
+    nav.nav-r.open .nav-menu { max-height: 560px; opacity: 1; }
+    .nav-r-links {
+      flex-direction: column; width: 100%; gap: 0; flex: none; justify-content: flex-start;
+    }
+    .nav-r-links li { width: 100%; }
+    .nav-r-links a {
+      display: block; width: 100%; padding: 16px 6vw; font-size: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.07); border-left: 3px solid transparent;
+    }
+    .nav-r-links a.active { color: #fff; background: rgba(217,28,28,0.12); border-left-color: var(--red); }
+    .nav-r-links a.active::after { display: none; }
+    .nav-wireless { margin: 16px 6vw 20px; justify-content: center; padding: 14px 16px; }
     .hero1 { padding: 150px 4vw 60px; min-height: auto; }
     .icon-strip {
       position: static; left: auto; right: auto; bottom: auto; margin: 40px auto 0;
@@ -1112,13 +1159,17 @@
     .hero2 { min-height: auto; padding: 130px 4vw 70px; }
   }
   @media (max-width: 600px) {
-    nav.nav-r .nav-logo img { height: 70px; }
-    .nav-wireless { padding: 8px 12px; }
-    .nav-wireless .nw-text { font-size: 9.5px; }
+    nav.nav-r .nav-logo img { height: 56px; }
+    .nav-wireless { padding: 12px 14px; }
+    .nav-wireless .nw-text { font-size: 11px; }
     .hero1 h1, .hero2 h1 { font-size: clamp(34px, 11vw, 54px); }
     .icon-strip { grid-template-columns: repeat(2, 1fr); }
     .feat-band { grid-template-columns: 1fr; }
-    .sobre2-services { grid-template-columns: repeat(2, 1fr); }
+    .sobre2-services { grid-template-columns: repeat(2, 1fr); padding: 22px 14px; gap: 18px 6px; }
+    .srv6 { padding: 4px 8px; gap: 10px; }
+    .srv6 svg { width: 30px; height: 30px; }
+    .srv6 .s-t { font-size: 12.5px; }
+    .srv6 .s-s { font-size: 11px; }
     .srv6:nth-child(3n)::after { display: block; }
     .srv6:nth-child(2n)::after { display: none; }
     .destaque { min-width: 100%; }
@@ -1134,6 +1185,10 @@
   <a href="#inicio" class="nav-logo">
     <img src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1781523229/WhatsApp_Image_2026-06-15_at_08.18.05_hnbccb-removebg-preview_elow6v.png" alt="Lima Sistema Contra Inc&ecirc;ndio">
   </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-menu" id="navMenu">
   <ul class="nav-r-links">
     <li><a href="#inicio" class="active">Home</a></li>
     <li><a href="#sobre">Sobre N&oacute;s</a></li>
@@ -1148,6 +1203,7 @@
     </svg>
     <span class="nw-text">Sistemas de Alarme<br>de Inc&ecirc;ndio <b>Sem Fio</b><br>(Wireless)</span>
   </a>
+  </div>
 </nav>
 
 <!-- ===== PARTE 1: HERO + COBERTURA ===== -->
@@ -1500,16 +1556,57 @@
 </a>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
+  /* ---- Reveal com stagger ---- */
+  const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const sibs = [...el.parentElement.children].filter(c => c.classList.contains('reveal'));
+      const idx = sibs.indexOf(el);
+      el.style.transitionDelay = (idx > 0 ? Math.min(idx, 8) * 75 : 0) + 'ms';
+      el.classList.add('visible');
+      revealObserver.unobserve(el);
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  /* ---- Scrollspy: marcação vermelha acompanha a seção visível ---- */
+  const navLinks = document.querySelectorAll('.nav-r-links a');
+  const spyIds = ['inicio', 'sobre', 'servicos', 'contato'];
+  const spySections = spyIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  function setActive(id) {
+    navLinks.forEach(a => {
+      const href = a.getAttribute('href') || '';
+      a.classList.toggle('active', href === '#' + id);
+    });
+  }
+
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  spySections.forEach(s => spyObserver.observe(s));
+
+  /* ---- Menu hambúrguer (mobile) ---- */
+  const navbar = document.querySelector('nav.nav-r');
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  function closeMenu() {
+    navbar.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  navToggle.addEventListener('click', () => {
+    const open = navbar.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  document.addEventListener('click', (e) => {
+    if (navbar.classList.contains('open') && !navbar.contains(e.target)) closeMenu();
+  });
 </script>
 </body>
 </html>
