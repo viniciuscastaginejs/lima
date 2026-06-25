@@ -855,12 +855,12 @@
   nav.nav-r {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    gap: 22px; padding: 0 4vw; height: 92px;
+    gap: 22px; padding: 0 4vw; height: 100px;
     background: rgba(10,3,3,0.94); backdrop-filter: blur(12px);
     border-bottom: 3px solid var(--red);
   }
   nav.nav-r .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-  nav.nav-r .nav-logo img { height: 62px; width: auto; display: block; }
+  nav.nav-r .nav-logo img { height: 88px; width: auto; display: block; }
   .nav-r-links {
     display: flex; align-items: center; gap: 28px; list-style: none;
     margin: 0; padding: 0; flex: 1; justify-content: center;
@@ -1023,12 +1023,13 @@
   .sobre2-services {
     max-width: 1280px; margin: 44px auto 0; background: #fff; border-radius: 20px;
     box-shadow: 0 18px 50px rgba(80,20,20,0.10); padding: 34px 30px;
-    display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px 8px;
   }
   .srv6 { display: flex; align-items: flex-start; gap: 14px; padding: 6px 14px; position: relative; }
   .srv6:not(:last-child)::after {
     content: ''; position: absolute; right: 0; top: 8%; height: 84%; width: 1px; background: #ECE4E4;
   }
+  .srv6:nth-child(6n)::after { display: none; }
   .srv6 svg { width: 38px; height: 38px; color: var(--red); flex-shrink: 0; margin-top: 2px; }
   .srv6 .s-t {
     font-family: 'Barlow', sans-serif; font-size: 14.5px; font-weight: 700;
@@ -1111,7 +1112,7 @@
     .hero2 { min-height: auto; padding: 130px 4vw 70px; }
   }
   @media (max-width: 600px) {
-    nav.nav-r .nav-logo img { height: 52px; }
+    nav.nav-r .nav-logo img { height: 70px; }
     .nav-wireless { padding: 8px 12px; }
     .nav-wireless .nw-text { font-size: 9.5px; }
     .hero1 h1, .hero2 h1 { font-size: clamp(34px, 11vw, 54px); }
@@ -1137,7 +1138,6 @@
     <li><a href="#inicio" class="active">Home</a></li>
     <li><a href="#sobre">Sobre N&oacute;s</a></li>
     <li><a href="#servicos">Solu&ccedil;&otilde;es</a></li>
-    <li><a href="#produtos">Produtos</a></li>
     <li><a href="#servicos">Servi&ccedil;os</a></li>
     <li><a href="#">Blog</a></li>
     <li><a href="#contato">Contato</a></li>
@@ -1309,6 +1309,27 @@
         <div class="s-s">Emiss&atilde;o e renova&ccedil;&atilde;o com agilidade</div>
       </div>
     </div>
+    <div class="srv6">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
+      <div>
+        <div class="s-t">Sobrecarga El&eacute;trica</div>
+        <div class="s-s">Preven&ccedil;&atilde;o e adequa&ccedil;&atilde;o de riscos el&eacute;tricos</div>
+      </div>
+    </div>
+    <div class="srv6">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="13" height="11" rx="2"/><path d="M16 11h2a1 1 0 0 1 1 1v4a1 1 0 0 0 2 0v-5l-2-2"/><path d="m10 10-2 3h3l-2 3"/></svg>
+      <div>
+        <div class="s-t">Carregador de Carro El&eacute;trico</div>
+        <div class="s-s">Instala&ccedil;&atilde;o e infraestrutura</div>
+      </div>
+    </div>
+    <div class="srv6">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3h6v3H9z"/><path d="m9 13 2 2 4-4"/></svg>
+      <div>
+        <div class="s-t">Aprova&ccedil;&atilde;o no Corpo de Bombeiros</div>
+        <div class="s-s">Projeto e regulariza&ccedil;&atilde;o junto ao &oacute;rg&atilde;o</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1388,73 +1409,6 @@
       </svg>
       <div class="servico-title">Laudos e AVCB</div>
       <p class="servico-desc">Elaboração de laudos tecnicos e acompanhamento para obtenção do Auto de Vistoria do Corpo de Bombeiros.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUTOS -->
-<section class="produtos" id="produtos">
-  <div class="produtos-header reveal">
-    <div class="section-label">Linha de produtos</div>
-    <h2 class="section-title">Equipamentos <span>Certificados</span></h2>
-  </div>
-
-  <div class="produtos-grid">
-    <div class="produto-card reveal">
-      <img class="produto-img" src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1781522560/109e5512-cd12-4279-9769-f68556c89ed7.png" alt="Extintor CO2 4kg">
-      <div class="produto-info">
-        <div class="produto-nome">Extintor CO2 4kg</div>
-        <div class="produto-cat">Extinção</div>
-      </div>
-    </div>
-    <div class="produto-card reveal">
-      <img class="produto-img" src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1781522563/c793834a-867d-467c-ab17-09955e883dcc.png" alt="Central de Alarme Intelbras">
-      <div class="produto-info">
-        <div class="produto-nome">Central de Alarme Intelbras</div>
-        <div class="produto-cat">Detecção</div>
-      </div>
-    </div>
-    <div class="produto-card reveal">
-      <img class="produto-img" src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1781522578/42c2fc33-5448-4dca-a304-4ca09f859cdd.png" alt="Detector de Fumaça">
-      <div class="produto-info">
-        <div class="produto-nome">Detector de Fumaca</div>
-        <div class="produto-cat">Detecção</div>
-      </div>
-    </div>
-    <div class="produto-card reveal">
-      <img class="produto-img" src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1781522584/feb76bcb-81bc-4b04-8238-0851cf19c399.png" alt="Mangueira para Hidrante">
-      <div class="produto-info">
-        <div class="produto-nome">Mangueira para Hidrante</div>
-        <div class="produto-cat">Hidraulica</div>
-      </div>
-    </div>
-    <div class="produto-card reveal">
-      <img class="produto-img" src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1781522593/5f6a6cbd-6aa4-4ff0-95c6-d407f36af6ec.png" alt="Iluminação de Emergência">
-      <div class="produto-info">
-        <div class="produto-nome">Iluminação de Emergência</div>
-        <div class="produto-cat">Sinalizacao</div>
-      </div>
-    </div>
-    <div class="produto-card reveal">
-      <img class="produto-img" src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1781522617/c94197b7-ad50-43c1-a0a7-955b24dc1713.png" alt="Sprinkler">
-      <div class="produto-info">
-        <div class="produto-nome">Sprinkler</div>
-        <div class="produto-cat">Supressão</div>
-      </div>
-    </div>
-    <div class="produto-card reveal">
-      <img class="produto-img" src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1781522624/56297a24-22c6-4a1b-957d-36738de28b82.png" alt="Extintor Pó Químico 6kg">
-      <div class="produto-info">
-        <div class="produto-nome">Extintor Pó Químico 6kg</div>
-        <div class="produto-cat">Extinção</div>
-      </div>
-    </div>
-    <div class="produto-card reveal">
-      <img class="produto-img" src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1781522630/94839190-9e28-4ca5-9532-1999c3843f2c.png" alt="Kit Acionador Manual">
-      <div class="produto-info">
-        <div class="produto-nome">Kit Acionador Manual</div>
-        <div class="produto-cat">Alarme</div>
-      </div>
     </div>
   </div>
 </section>
